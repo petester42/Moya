@@ -7,9 +7,9 @@ use_frameworks!
 target 'Demo' do
 
   # Our libraries
-  pod 'RxMoya', :path => "../"
-  pod 'ReactiveMoya', :path => "../"
-  pod 'Moya', :path => "../"
+  pod 'ReactiveMoya', :git => "https://github.com/Moya/Moya"
+  pod 'RxMoya', :git => "https://github.com/Moya/Moya", :branch => 'tvOS'
+  pod 'Moya', :git => "https://github.com/Moya/Moya", :branch => 'tvOS'
 
   # Fix for `Alamofire` with `tvOS` support
   pod 'Alamofire', :git => "https://github.com/Alamofire/Alamofire", :branch => "tvOS"

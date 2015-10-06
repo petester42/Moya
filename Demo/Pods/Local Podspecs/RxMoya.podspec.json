@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "RxSwift": [
-      "~> 2.0.0-alpha.4"
+      "~> 2.0.0-alpha"
     ]
   }
 }
