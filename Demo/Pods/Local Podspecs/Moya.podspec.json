@@ -13,7 +13,10 @@
   },
   "social_media_url": "http://twitter.com/ashfurrow",
   "platforms": {
-    "ios": "8.0"
+    "ios": "8.0",
+    "osx": "10.9",
+    "watchos": "2.0",
+    "tvos": "9.0"
   },
   "source": {
     "git": "https://github.com/Moya/Moya.git",
@@ -29,7 +32,7 @@
       ],
       "dependencies": {
         "Alamofire": [
-          "~> 2.0"
+          "~> 3.0.0-beta.3"
         ]
       },
       "frameworks": "Foundation"
@@ -63,7 +66,7 @@
 
         ],
         "RxSwift": [
-          "~> 2.0.0-alpha"
+          "~> 2.0.0-alpha.4"
         ]
       }
     }

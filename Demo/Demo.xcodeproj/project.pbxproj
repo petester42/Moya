@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0649AB6B1BAE131A00DB0C77 /* Observable+MoyaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0649AB6A1BAE131A00DB0C77 /* Observable+MoyaSpec.swift */; settings = {ASSET_TAGS = (); }; };
-		068831491BB10585007CFFEA /* SignalProducer+MoyaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068831481BB10585007CFFEA /* SignalProducer+MoyaSpec.swift */; settings = {ASSET_TAGS = (); }; };
-		54080C1FB2F773BE61D4944E /* Pods_DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97BC4C2770696BC2300D71D6 /* Pods_DemoTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0649AB6B1BAE131A00DB0C77 /* Observable+MoyaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0649AB6A1BAE131A00DB0C77 /* Observable+MoyaSpec.swift */; };
+		068831491BB10585007CFFEA /* SignalProducer+MoyaSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068831481BB10585007CFFEA /* SignalProducer+MoyaSpec.swift */; };
+		54080C1FB2F773BE61D4944E /* Pods_DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97BC4C2770696BC2300D71D6 /* Pods_DemoTests.framework */; };
 		5E70E8C31A1BB32400F00C49 /* EndpointSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E70E8BD1A1BB32400F00C49 /* EndpointSpec.swift */; };
 		5E70E8C51A1BB32400F00C49 /* MoyaProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E70E8BF1A1BB32400F00C49 /* MoyaProviderSpec.swift */; };
 		5E70E8C71A1BB32400F00C49 /* testImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E70E8C11A1BB32400F00C49 /* testImage.png */; };
-		5EBA229E1BA4AF18000622AB /* ReactiveCocoaMoyaProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBA229D1BA4AF18000622AB /* ReactiveCocoaMoyaProviderTests.swift */; settings = {ASSET_TAGS = (); }; };
-		5EBA22A01BA4AF69000622AB /* RxSwiftMoyaProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBA229F1BA4AF69000622AB /* RxSwiftMoyaProviderTests.swift */; settings = {ASSET_TAGS = (); }; };
+		5EBA229E1BA4AF18000622AB /* ReactiveCocoaMoyaProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBA229D1BA4AF18000622AB /* ReactiveCocoaMoyaProviderTests.swift */; };
+		5EBA22A01BA4AF69000622AB /* RxSwiftMoyaProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBA229F1BA4AF69000622AB /* RxSwiftMoyaProviderTests.swift */; };
 		5EC197E61A1BB16D00F4DFD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC197E51A1BB16D00F4DFD4 /* AppDelegate.swift */; };
 		5EC197E81A1BB16D00F4DFD4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC197E71A1BB16D00F4DFD4 /* ViewController.swift */; };
 		5EC197ED1A1BB16D00F4DFD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EC197EB1A1BB16D00F4DFD4 /* Main.storyboard */; };
@@ -22,7 +22,7 @@
 		5EC197F21A1BB16D00F4DFD4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EC197F01A1BB16D00F4DFD4 /* LaunchScreen.xib */; };
 		5EC198081A1BB24600F4DFD4 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EC198071A1BB24600F4DFD4 /* GitHubAPI.swift */; };
 		5EE0145E1AE81206001FAE57 /* MoyaProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E70E8BE1A1BB32400F00C49 /* MoyaProviderIntegrationTests.swift */; };
-		CB2F9AABC0BD12E36B52FAD5 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A97CBA359B35E58F6A8E39 /* Pods_Demo.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CB2F9AABC0BD12E36B52FAD5 /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A97CBA359B35E58F6A8E39 /* Pods_Demo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (2.0.2)
+  - Alamofire (3.0.0-beta.3)
   - Moya (3.0.0):
     - Moya/Core (= 3.0.0)
   - Moya/Core (3.0.0):
-    - Alamofire (~> 2.0)
+    - Alamofire (~> 3.0.0-beta.3)
   - Nimble (2.0.0-rc.3)
   - OHHTTPStubs (4.2.0):
     - OHHTTPStubs/Default (= 4.2.0)
@@ -34,10 +34,11 @@ PODS:
     - ReactiveCocoa (~> 4.0-alpha.1)
   - Result (0.6.0-beta.3)
   - RxMoya (3.0.0):
-    - RxSwift (~> 2.0.0-alpha)
+    - RxSwift (~> 2.0.0-alpha.4)
   - RxSwift (2.0.0-alpha.4)
 
 DEPENDENCIES:
+  - Alamofire (from `https://github.com/Alamofire/Alamofire`, branch `tvOS`)
   - Moya (from `../`)
   - Nimble (from `https://github.com/Quick/Nimble`)
   - OHHTTPStubs
@@ -46,6 +47,9 @@ DEPENDENCIES:
   - RxMoya (from `../`)
 
 EXTERNAL SOURCES:
+  Alamofire:
+    :branch: tvOS
+    :git: https://github.com/Alamofire/Alamofire
   Moya:
     :path: "../"
   Nimble:
@@ -58,6 +62,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: d0d43f4e4bb612baf155a2079fa9fa624f0ad6c8
+    :git: https://github.com/Alamofire/Alamofire
   Nimble:
     :commit: a87c41424b2b8bc7821cf9e0352f87f53daf5263
     :git: https://github.com/Quick/Nimble
@@ -66,15 +73,15 @@ CHECKOUT OPTIONS:
     :git: https://github.com/Quick/Quick
 
 SPEC CHECKSUMS:
-  Alamofire: 8edbab00802a752bb5240cc2abe70e7e881488ad
-  Moya: c5d090735b8dd5666c451f1e786b1cda51d9d687
+  Alamofire: 5b9633a734bbd438e23615e5c202800df7e76b86
+  Moya: 0acd7f1715953cef765ed99d239018f2bb057220
   Nimble: 2f64d173ad23dc39f10110840a1ed15f29ef75e8
   OHHTTPStubs: f639130b83fb5f4f022d38f841141b0a6fa77249
   Quick: aaa961333f0bec39bfefa4b759128e4eb39f0d0e
   ReactiveCocoa: 652cf90e5de65708e7e2111f77405756da21aabe
   ReactiveMoya: 585f48a1ae15bfe688e085fc20d6e8053b6c1cab
   Result: b80bca7becdda9a2e44c4fd65b4b4a7b5db4cf9a
-  RxMoya: 700eb8506c7d05c30d5af1e41a50160e4977e04d
+  RxMoya: 97a103a7a826fc14769bddf0809ac15bafaca6b4
   RxSwift: 76dbcb12e55197533f8ace2af887511d7c9262dc
 
-COCOAPODS: 0.39.0.beta.4
+COCOAPODS: 0.39.0.rc.1

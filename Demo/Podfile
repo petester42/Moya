@@ -11,6 +11,8 @@ target 'Demo' do
   pod 'ReactiveMoya', :path => "../"
   pod 'Moya', :path => "../"
 
+  # Fix for `Alamofire` with `tvOS` support
+  pod 'Alamofire', :git => "https://github.com/Alamofire/Alamofire", :branch => "tvOS"
 end
 
 target 'DemoTests' do
