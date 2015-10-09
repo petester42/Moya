@@ -96,14 +96,14 @@ public class MoyaProvider<Target: MoyaTarget> {
     
     /// A list of plugins
     /// e.g. for logging, network activity indicator or credentials
-    public let plugins: [Plugin<Target>]
+    public let plugins: [Plugin]
 
     /// Initializes a provider.
     public init(endpointClosure: EndpointClosure = MoyaProvider.DefaultEndpointMapping,
         requestClosure: RequestClosure = MoyaProvider.DefaultRequestMapping,
         stubClosure: StubClosure = MoyaProvider.NeverStub,
         manager: Manager = Alamofire.Manager.sharedInstance,
-        plugins: [Plugin<Target>] = []) {
+        plugins: [Plugin] = []) {
 
         self.endpointClosure = endpointClosure
         self.requestClosure = requestClosure

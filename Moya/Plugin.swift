@@ -4,34 +4,14 @@ import Foundation
 ///
 /// for example, a plugin may be used to
 ///     - log network requests
-///     - hide and show a network avtivity indicator 
+///     - hide and show a network avtivity indicator
 ///     - inject additional information into a request
-public class Plugin<Target: MoyaTarget> {
+public protocol Plugin {
     
-    // NOTE:
-    //
-    // We cannot implement `Plugin` as a generic protocol here, because `MoyaProvider` needs
-    // to keep references to an array of plugins and a generic protocol cannot be used as an array constraint.
-    //
-    // i.e.
-    // protocol Plugin {
-    //      typealias T: MoyaTarget
-    //      ...
-    // }
-    //
-    // let plugins = [Plugin]()
-    // 
-    // This does not work, because `plugins` is now unable to infer the actual type of the typealias `T`.
-
     /// Called immediately before a request is sent over the network (or stubbed).
-    func willSendRequest(request: MoyaRequest, provider: MoyaProvider<Target>, target: Target) {
-        // Should be overridden if necessary
-    }
-
-    // Called after a response has been received, but before the MoyaProvider has invoked its completion handler.
-    func didReceiveResponse(data: NSData?, statusCode: Int?, response: NSURLResponse?, error: ErrorType?, provider: MoyaProvider<Target>, target: Target) {
-        // Should be overridden if necessary
-    }
+    func willSendRequest<Target: MoyaTarget>(request: MoyaRequest, provider: MoyaProvider<Target>, target: Target)
+    /// Called after a response has been received, but before the MoyaProvider has invoked its completion handler.
+    func didReceiveResponse<Target: MoyaTarget>(data: NSData?, statusCode: Int?, response: NSURLResponse?, error: ErrorType?, provider: MoyaProvider<Target>, target: Target)
 }
 
 /// Request type used by willSendRequest plugin function.
