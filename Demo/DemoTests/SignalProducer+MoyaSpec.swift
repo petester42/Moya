@@ -1,5 +1,5 @@
 import Quick
-import ReactiveMoya
+import Moya
 import ReactiveCocoa
 import Nimble
 
@@ -29,7 +29,7 @@ class SignalProducerMoyaSpec: QuickSpec {
                     switch event {
                     case .Next(let object):
                         XCTFail("called on non-correct status code: \(object)")
-                    case .Error:
+                    case .Failed:
                         errored = true
                     default:
                         break
@@ -48,7 +48,7 @@ class SignalProducerMoyaSpec: QuickSpec {
                         switch event {
                         case .Next(let object):
                             XCTFail("called on non-success status code: \(object)")
-                        case .Error:
+                        case .Failed:
                             errored = true
                         default:
                             break
@@ -79,7 +79,7 @@ class SignalProducerMoyaSpec: QuickSpec {
                     switch event {
                     case .Next(let object):
                         XCTFail("called on non-success status code: \(object)")
-                    case .Error:
+                    case .Failed:
                         errored = true
                     default:
                         break
@@ -137,7 +137,7 @@ class SignalProducerMoyaSpec: QuickSpec {
                     switch event {
                     case .Next:
                         XCTFail("next called for invalid data")
-                    case .Error(let error):
+                    case .Failed(let error):
                         receivedError = error
                     default:
                         break
@@ -175,7 +175,7 @@ class SignalProducerMoyaSpec: QuickSpec {
                     switch event {
                     case .Next:
                         XCTFail("next called for invalid data")
-                    case .Error(let error):
+                    case .Failed(let error):
                         receivedError = error
                     default:
                         break

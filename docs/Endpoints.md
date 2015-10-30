@@ -97,13 +97,11 @@ Sample responses are a requirement of the `MoyaTarget` protocol. However, they
 only specify the data returned. The Target-to-Endpoint mapping closure is where
 you can specify more details, which is useful for unit testing. 
 
-Sample responses have one of three values:
+Sample responses have one of two values:
 
-- `Success` with an `Int` status code and a closure that returns `NSData` returned data.
-- `Error`, with an `Int?` optional status code, an `NSError?` optional error, and an optional closure that returns `NSData` returned data.
-- `Closure`, with a closure that returns a sample response.
+- `NetworkResponse`, with an `Int` status code and an `NSData` returned data.
+- `NetworkError`, with an `ErrorType?` optional error type.
 
-The closure is useful for loading different sample data during unit tests. 
  
 Request Mapping
 ---------------
@@ -139,10 +137,7 @@ let requestClosure = { (endpoint: Endpoint<GitHub>, done: NSURLRequest -> Void) 
 provider = MoyaProvider<GitHub>(requestClosure: requestClosure)
 ```
 
-Note that the `endpointResolver` is *not* intended to be used for any sort of 
-application-level mapping. This closure is really about modifying properties 
-specific to the `NSURLRequest`, or providing information to the request that 
-cannot be known until that request is created, like cookies settings.
+This `requestClosure` is useful for modifying properties specific to the `NSURLRequest` or providing information to the request that cannot be known until that request is created, like cookies settings. Note that the `endpointClosure` mentioned above is not intended for this purpose or any request-specific application-level mapping.
 
 This parameter is actually very useful for modifying the request object. 
 `NSURLRequest` has many properties you can customize. Say you want to disable 

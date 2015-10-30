@@ -2,5 +2,6 @@ source 'https://rubygems.org'
 
 gem 'xcpretty'
 
-gem 'cocoapods', '0.39.0.rc.1'
+gem 'cocoapods', '0.39.0'
 gem 'cocoapods-deintegrate'
+gem 'rake'

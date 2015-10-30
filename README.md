@@ -54,28 +54,23 @@ Currently, we support Xcode 7 and Swift 2.
 Installation
 ------------
 
+### CocoaPods
 Just add `pod 'Moya'` to your Podfile and go!
 
 In any file you'd like to use Moya in, don't forget to
 import the framework with `import Moya`.
 
-For ReactiveCocoa extensions, this project has some dependencies. Add the following
-lines to your Podfile:
+For RxSwift or ReactiveCocoa extensions, this project will include 
+them as dependencies. You can do this via CocoaPods subspecs.
 
 ```rb
+pod 'Moya/RxSwift'
 pod 'Moya/ReactiveCocoa'
 ```
 
 Then run `pod install`.
 
-For RxSwift extensions, use the following Podfile.
-
-```rb
-pod 'Moya/RxSwift'
-```
-
-----------------
-
+### Carthage
 Carthage users can point to this repository and use whichever
 generated framework they'd like, `Moya`, `RxMoya`, or `ReactiveMoya`.
 The full Moya framework is bundled in each of those frameworks;
@@ -115,27 +110,57 @@ parameter encoding.
 
 For examples, see the [documentation](docs/).
 
-ReactiveCocoa Extensions
-------------------------
+Reactive Extensions
+-------------------
 
-Even cooler are the ReactiveCocoa extensions. It immediately returns a
-`RACSignal` that you can subscribe to or bind or map or whatever you want to
-do. To handle errors, for instance, we could do the following:
+Even cooler are the reactive extensions. Moya provides reactive extensions for
+[ReactiveCocoa](docs/ReactiveCocoa.md) and [RxSwift](docs/RxSwift.md).
+
+## ReactiveCocoa
+
+For `ReactiveCocoa`, it immediately returns a `SignalProducer` (`RACSignal`
+is also available if needed) that you can start or bind or map or whatever
+you want to do. To handle errors, for instance, we could do the following:
 
 ```swift
-provider.request(.UserProfile("ashfurrow")).subscribeNext { (object) -> Void in
-    image = UIImage(data: object as? NSData)
-}, error: { (error) -> Void in
-    println(error)
+provider.request(.UserProfile("ashfurrow")).start { (event) -> Void in
+    switch event {
+    case .Next(let response):
+        image = UIImage(data: response.data)
+    case .Error(let error):
+        print(error)
+    default:
+      break
+    }
 }
 ```
 
+##RxSwift
+
+For `RxSwift`, it immediately returns an `Observable` that you can subscribe to
+or bind or map or whatever you want to do. To handle errors, for instance, 
+we could do the following:
+
+```swift
+provider.request(.UserProfile("ashfurrow")).subscribe { (event) -> Void in
+    switch event {
+    case .Next(let response):
+        image = UIImage(data: response.data)
+    case .Error(let error):
+        print(error)
+    default:
+        break
+    }
+}
+```
+
+---
+
 In addition to the option of using signals instead of callback blocks, there are
-also a series of signal operators that will attempt to map the data received
-from the network response into either an image, some JSON, or a string, with
-`mapImage()`, `mapJSON()`, and `mapString()`, respectively. If the mapping is
-unsuccessful, you'll get an error on the signal. You also get handy methods for
-filtering out certain status codes. This means that you can place your code for
+also a series of signal operators for RxSwift and ReactiveCocoa that will attempt
+to map the data received from the network response into either an image, some JSON,
+or a string, with `mapImage()`, `mapJSON()`, and `mapString()`, respectively. If the mapping is unsuccessful, you'll get an error on the signal. You also get handy methods
+for filtering out certain status codes. This means that you can place your code for
 handling API errors like 400's in the same places as code for handling invalid
 responses.
 
@@ -156,7 +181,7 @@ following:
 - Fixing bugs/new features.
 
 If any of that sounds cool to you, send a pull request! After a few
-contributions, we'll add you as admins to the repo so you can merge pull
+contributions, we'll add you as an admin to the repo so you can merge pull
 requests :tada:
 
 Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by [its terms](https://github.com/Moya/code-of-conduct).

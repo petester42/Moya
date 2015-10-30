@@ -7,18 +7,15 @@ use_frameworks!
 target 'Demo' do
 
   # Our libraries
-  pod 'ReactiveMoya', :git => "https://github.com/Moya/Moya"
-  pod 'RxMoya', :git => "https://github.com/Moya/Moya", :branch => 'tvOS'
-  pod 'Moya', :git => "https://github.com/Moya/Moya", :branch => 'tvOS'
-
-  # Fix for `Alamofire` with `tvOS` support
-  pod 'Alamofire', :git => "https://github.com/Alamofire/Alamofire", :branch => "tvOS"
+  pod 'Moya', :path => "../"
+  pod 'Moya/ReactiveCocoa', :path => "../"
+  pod 'Moya/RxSwift', :path => "../"
 end
 
 target 'DemoTests' do
 
-  pod 'Quick', :git => 'https://github.com/Quick/Quick'
-  pod 'Nimble', :git => 'https://github.com/Quick/Nimble'
+  pod 'Quick'
+  pod 'Nimble'
   pod 'OHHTTPStubs'
 
 end

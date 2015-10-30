@@ -1,5 +1,30 @@
 # Next
 
+# 4.1.0
+
+- OS X support.
+
+# 4.0.3
+
+- Fixes Carthage integration problem.
+
+# 4.0.2
+
+- CancellableTokens can now debug print the requests cURL.
+
+# 4.0.1
+
+- Plugins now subclasses NSObject for custom subclasses.
+- Plugins' methods are now public, allowing custom subclasses to override.
+
+# 4.0.0
+
+- Updates Alamofire dependency to `~> 3.0`
+
+# 3.0.1
+
+- Changes `mapImage()` RxSwift function to use `UIImage!` instead of `UIImage`.
+
 # 3.0.0
 
 - Makes `parameters` on `MoyaTarget` an optional `[String: AnyObject]` dictionary.
