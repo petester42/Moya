@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   are in [the README](https://github.com/Moya/Moya).
   EOS
   s.homepage     = "https://github.com/Moya/Moya"
-  s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.license      = { :type => "MIT", :file => "License.md" }
   s.author             = { "Ash Furrow" => "ash@ashfurrow.com" }
   s.social_media_url   = "http://twitter.com/ashfurrow"
   s.ios.deployment_target = '8.0'
@@ -40,6 +40,6 @@ Pod::Spec.new do |s|
   s.subspec "RxSwift" do |ss|
     ss.source_files = "Source/RxSwift/*.swift"
     ss.dependency "Moya/ReactiveCore"
-    ss.dependency "RxSwift", "~> 2.0.0-alpha"
+    ss.dependency "RxSwift", "~> 2.0.0-beta"
   end
 end
