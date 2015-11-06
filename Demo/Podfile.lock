@@ -13,6 +13,7 @@ PODS:
     - Moya/Core
     - RxSwift (~> 2.0.0-beta)
   - Nimble (3.0.0)
+  - ObjectMapper (1.0.1)
   - OHHTTPStubs (4.4.0):
     - OHHTTPStubs/Default (= 4.4.0)
   - OHHTTPStubs/Core (4.4.0)
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - Moya/ReactiveCocoa (from `../`)
   - Moya/RxSwift (from `../`)
   - Nimble
+  - ObjectMapper
   - OHHTTPStubs
   - Quick
 
@@ -61,6 +63,7 @@ SPEC CHECKSUMS:
   Curry: 294533187eedbf52db60a1e70c29b4f5c9f621c0
   Moya: f0775a97bff111b3b7c474068878016213ef6654
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  ObjectMapper: 98524bac0dca46c6b3d5ee02cd410fc700ec6ce2
   OHHTTPStubs: 1a95a653b78287a1fdb44eb38364b43257ac3550
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   ReactiveCocoa: 441c518a69d0f6202a1886d77b66d8f79e1f4a81

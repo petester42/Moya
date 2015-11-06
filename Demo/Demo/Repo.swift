@@ -1,14 +1,27 @@
 import Argo
 import Curry
+import ObjectMapper
 
 struct Repo {
-    let name: String
+    var name: String
 }
 
-extension Repo: Decodable {
+//extension Repo: Decodable {
+//    
+//    static func decode(json: JSON) -> Decoded<Repo> {
+//        return curry(Repo.init)
+//            <^> json <| "name"
+//    }
+//}
+
+extension Repo: Mappable {
     
-    static func decode(json: JSON) -> Decoded<Repo> {
-        return curry(Repo.init)
-            <^> json <| "name"
+    init?(_ map: Map) {
+        name = ""
+        name <- map["name"]
+    }
+
+    mutating func mapping(map: Map) {
+        name <- map["name"]
     }
 }

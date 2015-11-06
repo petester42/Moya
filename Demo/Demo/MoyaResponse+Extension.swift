@@ -1,5 +1,6 @@
 import Moya
 import Argo
+import ObjectMapper
 
 public extension MoyaResponse {
     
@@ -44,6 +45,32 @@ public extension MoyaProvider {
         return request(target) { response, error in
             do {
                 completion(response: try response?.mapEntity(), error: error)
+            } catch {
+                completion(response: nil, error: error)
+            }
+        }
+    }
+}
+
+public extension MoyaResponse {
+
+    func mapObjectMapper<U: Mappable>() throws -> [U] {
+
+        let response = try self.mapJSON()
+        guard let decoded: [U] = Mapper<U>().mapArray(response) else {
+            throw NSError(domain: MoyaErrorDomain, code: MoyaErrorCode.JSONMapping.rawValue, userInfo: nil)
+        }
+        
+        return decoded
+    }
+}
+
+public extension MoyaProvider {
+    
+    func request<U: Mappable>(target: Target, completion: (response: [U]?, error: ErrorType?) -> ()) -> Cancellable {
+        return request(target) { response, error in
+            do {
+                completion(response: try response?.mapObjectMapper(), error: error)
             } catch {
                 completion(response: nil, error: error)
             }
