@@ -5,7 +5,7 @@ import Alamofire
 public class Moya {
 
     /// Closure to be executed when a request has completed.
-    public typealias Completion = (data: NSData?, statusCode: Int?, response: NSURLResponse?, error: ErrorType?) -> ()
+    public typealias Completion = (response: MoyaResponse?, error: ErrorType?) -> ()
 
     /// Represents an HTTP method.
     public enum Method {
@@ -187,11 +187,15 @@ private extension MoyaProvider {
         
         // Perform the actual request
         let alamoRequest = request.response { (_, response: NSHTTPURLResponse?, data: NSData?, error: NSError?) -> () in
-            let statusCode = response?.statusCode
-
+            
+            var moyaResponse: MoyaResponse? = nil
+            if let response = response, let data = data {
+                moyaResponse = MoyaResponse(statusCode: response.statusCode, data: data, response: response)
+            }
+            
             // Inform all plugins about the response
-            plugins.forEach { $0.didReceiveResponse(data, statusCode: statusCode, response: response, error: error, provider: self, target: target) }
-            completion(data: data, statusCode: statusCode, response: response, error: error)
+            plugins.forEach { $0.didReceiveResponse(moyaResponse, error: error, provider: self, target: target) }
+            completion(response: moyaResponse, error: error)
         }
         
 
@@ -209,18 +213,22 @@ private extension MoyaProvider {
         let stub: () -> () = {
             if (canceled) {
                 let error = NSError(domain: NSURLErrorDomain, code: NSURLErrorCancelled, userInfo: nil)
-                plugins.forEach { $0.didReceiveResponse(nil, statusCode: nil, response: nil, error: error, provider: self, target: target) }
-                completion(data: nil, statusCode: nil, response: nil, error: error)
+                plugins.forEach { $0.didReceiveResponse(nil, error: error, provider: self, target: target) }
+                completion(response: nil, error: error)
                 return
             }
 
             switch endpoint.sampleResponseClosure() {
             case .NetworkResponse(let statusCode, let data):
-                plugins.forEach { $0.didReceiveResponse(data, statusCode: statusCode, response: nil, error: nil, provider: self, target: target) }
-                completion(data: data, statusCode: statusCode, response: nil, error: nil)
+                
+                let moyaResponse = MoyaResponse(statusCode: statusCode, data: data, response: nil)
+                
+                // Inform all plugins about the response
+                plugins.forEach { $0.didReceiveResponse(moyaResponse, error: nil, provider: self, target: target) }
+                completion(response: moyaResponse, error: nil)
             case .NetworkError(let error):
-                plugins.forEach { $0.didReceiveResponse(nil, statusCode: nil, response: nil, error: error, provider: self, target: target) }
-                completion(data: nil, statusCode: nil, response: nil, error: error)
+                plugins.forEach { $0.didReceiveResponse(nil, error: error, provider: self, target: target) }
+                completion(response: nil, error: error)
             }
         }
 

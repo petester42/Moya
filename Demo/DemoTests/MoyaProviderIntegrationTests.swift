@@ -52,9 +52,9 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         var message: String?
                         
                         let target: GitHub = .Zen
-                        provider.request(target) { (data, statusCode, response, error) in
-                            if let data = data {
-                                message = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+                        provider.request(target) { (response, error) in
+                            if let response = response {
+                                message = NSString(data: response.data, encoding: NSUTF8StringEncoding) as? String
                             }
                         }
                         
@@ -65,9 +65,9 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         var message: String?
                         
                         let target: GitHub = .UserProfile("ashfurrow")
-                        provider.request(target) { (data, statusCode, response, error) in
-                            if let data = data {
-                                message = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+                        provider.request(target) { (response, error) in
+                            if let response = response {
+                                message = NSString(data: response.data, encoding: NSUTF8StringEncoding) as? String
                             }
                         }
                         
@@ -78,7 +78,7 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         var receivedError: ErrorType?
 
                         let target: GitHub = .UserProfile("ashfurrow")
-                        let token = provider.request(target) { (data, statusCode, response, error) in
+                        let token = provider.request(target) { (response, error) in
                             receivedError = error
                         }
                         token.cancel()
@@ -99,7 +99,7 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         expect(provider.plugins.count).to(equal(1))
                         
                         let target: HTTPBin = .BasicAuth
-                        provider.request(target) { (data, statusCode, response, error) in }
+                        provider.request(target) { (response, error) in }
                         
                         expect(called).toEventually( beTrue() )
                         
@@ -115,8 +115,8 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         
                         let provider  = MoyaProvider<HTTPBin>(plugins: [plugin])
                         let target: HTTPBin = .BasicAuth
-                        provider.request(target) { (data, statusCode, response, error) in
-                            returnedData = data
+                        provider.request(target) { (response, error) in
+                            returnedData = response?.data
                         }
                         
                         expect(called).toEventually( beTrue() )
@@ -135,7 +135,7 @@ class MoyaProviderIntegrationTests: QuickSpec {
                         
                         let provider = MoyaProvider<GitHub>(plugins: [plugin])
                         let target: GitHub = .Zen
-                        provider.request(target) { (data, statusCode, response, error) in }
+                        provider.request(target) { (response, error) in }
 
                         expect(called).toEventually( beTrue() )
                     }
@@ -150,7 +150,7 @@ class MoyaProviderIntegrationTests: QuickSpec {
 
                         let provider = MoyaProvider<GitHub>(plugins: [plugin])
                         let target: GitHub = .Zen
-                        provider.request(target) { (data, statusCode, response, error) in }
+                        provider.request(target) { (response, error) in }
 
                         expect(called).toEventually( beTrue() )
                     }

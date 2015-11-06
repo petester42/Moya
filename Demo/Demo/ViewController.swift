@@ -12,11 +12,11 @@ class ViewController: UITableViewController {
     // MARK: - API Stuff
 
     func downloadRepositories(username: String) {
-        GitHubProvider.request(.UserRepositories(username), completion: { (data, status, resonse, error) -> () in
+        GitHubProvider.request(.UserRepositories(username), completion: { (response, error) -> () in
             var success = error == nil
-            if let data = data {
+            if let response = response {
                 do {
-                    let json: AnyObject? = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
+                    let json: AnyObject? = try NSJSONSerialization.JSONObjectWithData(response.data, options: .MutableContainers)
                     if let json = json as? NSArray {
                         // Presumably, you'd parse the JSON into a model object. This is just a demo, so we'll keep it as-is.
                         self.repos = json
@@ -51,10 +51,10 @@ class ViewController: UITableViewController {
     }
 
     func downloadZen() {
-        GitHubProvider.request(.Zen, completion: { (data, status, response, error) -> () in
+        GitHubProvider.request(.Zen, completion: { (response, error) -> () in
             var message = "Couldn't access API"
-            if let data = data {
-                message = NSString(data: data, encoding: NSUTF8StringEncoding) as? String ?? message
+            if let response = response {
+                message = NSString(data: response.data, encoding: NSUTF8StringEncoding) as? String ?? message
             }
 
             let alertController = UIAlertController(title: "Zen", message: message, preferredStyle: .Alert)

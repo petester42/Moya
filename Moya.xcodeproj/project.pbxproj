@@ -21,6 +21,9 @@
 		0630A3671BE1CA0400AD4789 /* ReactiveMoya.h in Headers */ = {isa = PBXBuildFile; fileRef = 0630A3031BE1C60200AD4789 /* ReactiveMoya.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0630A3681BE1CA0E00AD4789 /* RxMoya.h in Headers */ = {isa = PBXBuildFile; fileRef = 0630A3041BE1C60200AD4789 /* RxMoya.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0670D32A1BE1CB010062593A /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0670D3291BE1CB010062593A /* RxSwift.framework */; };
+		06A70B2E1BEC23E400DCA4FB /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0630A2FC1BE1C2FF00AD4789 /* Image.swift */; };
+		06A70B2F1BEC23E400DCA4FB /* MoyaError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F0D591BDE9A37009D0A49 /* MoyaError.swift */; };
+		06A70B301BEC23E400DCA4FB /* MoyaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F0D5A1BDE9A37009D0A49 /* MoyaResponse.swift */; };
 		091F0D5E1BDE9A5B009D0A49 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F0D4D1BDE9A37009D0A49 /* Endpoint.swift */; };
 		091F0D5F1BDE9A5D009D0A49 /* Moya.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F0D4E1BDE9A37009D0A49 /* Moya.swift */; };
 		091F0D601BDE9A5E009D0A49 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091F0D4F1BDE9A37009D0A49 /* Plugin.swift */; };
@@ -521,11 +524,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06A70B2E1BEC23E400DCA4FB /* Image.swift in Sources */,
 				091F0D5E1BDE9A5B009D0A49 /* Endpoint.swift in Sources */,
+				06A70B2F1BEC23E400DCA4FB /* MoyaError.swift in Sources */,
 				091F0D5F1BDE9A5D009D0A49 /* Moya.swift in Sources */,
 				091F0D601BDE9A5E009D0A49 /* Plugin.swift in Sources */,
 				091F0D611BDE9A60009D0A49 /* CredentialsPlugin.swift in Sources */,
 				091F0D621BDE9A61009D0A49 /* NetworkActivityPlugin.swift in Sources */,
+				06A70B301BEC23E400DCA4FB /* MoyaResponse.swift in Sources */,
 				091F0D631BDE9A63009D0A49 /* NetworkLoggerPlugin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

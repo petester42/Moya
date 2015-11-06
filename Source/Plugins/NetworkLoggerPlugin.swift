@@ -17,8 +17,8 @@ public class NetworkLoggerPlugin<Target: MoyaTarget>: Plugin<Target> {
         logNetworkRequest(request.request)
     }
 
-    public override func didReceiveResponse(data: NSData?, statusCode: Int?, response: NSURLResponse?, error: ErrorType?, provider: MoyaProvider<Target>, target: Target) {
-        logNetworkResponse(response, data: data, target: target)
+    public override func didReceiveResponse(response: MoyaResponse?, error: ErrorType?, provider: MoyaProvider<Target>, target: Target) {
+        logNetworkResponse(response?.response, data: response? .data, target: target)
     }
 
 }
