@@ -1,7 +1,7 @@
 import Moya
 import Argo
 
-extension MoyaResponse {
+public extension MoyaResponse {
     
     func mapEntity<U: Decodable where U == U.DecodedType>() throws -> U {
         
@@ -34,6 +34,19 @@ extension MoyaResponse {
             throw NSError(domain: MoyaErrorDomain, code: MoyaErrorCode.JSONMapping.rawValue, userInfo: ["data": response, "expected": expected, "actual": actual])
         case let .Failure(.Custom(error)):
             throw NSError(domain: MoyaErrorDomain, code: MoyaErrorCode.JSONMapping.rawValue, userInfo: ["data": response, "custom": error])
+        }
+    }
+}
+
+public extension MoyaProvider {
+    
+    func request<U: Decodable where U == U.DecodedType>(target: Target, completion: (response: [U]?, error: ErrorType?) -> ()) -> Cancellable {
+        return request(target) { response, error in
+            do {
+                completion(response: try response?.mapEntity(), error: error)
+            } catch {
+                completion(response: nil, error: error)
+            }
         }
     }
 }

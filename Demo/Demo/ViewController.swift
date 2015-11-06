@@ -12,15 +12,11 @@ class ViewController: UITableViewController {
     // MARK: - API Stuff
 
     func downloadRepositories(username: String) {
-        GitHubProvider.request(.UserRepositories(username), completion: { (response, error) -> () in
+        GitHubProvider.request(.UserRepositories(username)) { (response: [Repo]?, error) -> () in
+
             var success = error == nil
             if let response = response {
-                do {
-                    self.repos = try response.mapEntity()
-                } catch {
-                    success = false
-                }
-
+                self.repos = response
                 self.tableView.reloadData()
             } else {
                 success = false
@@ -41,7 +37,7 @@ class ViewController: UITableViewController {
                 alertController.addAction(ok)
                 self.presentViewController(alertController, animated: true, completion: nil)
             }
-        })
+        }
     }
 
     func downloadZen() {
