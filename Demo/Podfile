@@ -10,6 +10,8 @@ target 'Demo' do
   pod 'Moya', :path => "../"
   pod 'Moya/ReactiveCocoa', :path => "../"
   pod 'Moya/RxSwift', :path => "../"
+  pod 'Argo'
+  pod 'Curry'
 end
 
 target 'DemoTests' do

@@ -1,7 +1,7 @@
 import UIKit
 
 class ViewController: UITableViewController {
-    var repos = NSArray()
+    var repos = [Repo]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,13 +16,7 @@ class ViewController: UITableViewController {
             var success = error == nil
             if let response = response {
                 do {
-                    let json: AnyObject? = try NSJSONSerialization.JSONObjectWithData(response.data, options: .MutableContainers)
-                    if let json = json as? NSArray {
-                        // Presumably, you'd parse the JSON into a model object. This is just a demo, so we'll keep it as-is.
-                        self.repos = json
-                    } else {
-                        success = false
-                    }
+                    self.repos = try response.mapEntity()
                 } catch {
                     success = false
                 }
@@ -99,8 +93,8 @@ class ViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
-        let object = repos[indexPath.row] as! NSDictionary
-        (cell.textLabel as UILabel!).text = object["name"] as? String
+        let object = repos[indexPath.row]
+        (cell.textLabel as UILabel!).text = object.name
         return cell
     }
 }

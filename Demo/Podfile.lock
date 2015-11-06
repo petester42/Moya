@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (3.1.1)
+  - Argo (2.2.0)
+  - Curry (1.4.0)
   - Moya (4.3.1):
     - Moya/Core (= 4.3.1)
   - Moya/Core (4.3.1):
@@ -40,6 +42,8 @@ PODS:
   - RxSwift (2.0.0-beta.2)
 
 DEPENDENCIES:
+  - Argo
+  - Curry
   - Moya (from `../`)
   - Moya/ReactiveCocoa (from `../`)
   - Moya/RxSwift (from `../`)
@@ -53,6 +57,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 9b0a7188b961a03914a99304488bd226b0e46c0e
+  Argo: 4f52a32b4cd913c204e5a45f420b3fccad3e3f24
+  Curry: 294533187eedbf52db60a1e70c29b4f5c9f621c0
   Moya: f0775a97bff111b3b7c474068878016213ef6654
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   OHHTTPStubs: 1a95a653b78287a1fdb44eb38364b43257ac3550
