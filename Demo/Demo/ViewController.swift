@@ -12,7 +12,7 @@ class ViewController: UITableViewController {
     // MARK: - API Stuff
 
     func downloadRepositories(username: String) {
-        GitHubProvider.request(.UserRepositories(username)) { (response: [Repo]?, error) -> () in
+        GitHubProvider.request(.UserRepositories(username)) { (response: [Repo]?, error) in
 
             var success = error == nil
             if let response = response {

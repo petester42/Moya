@@ -68,7 +68,7 @@ public extension MoyaResponse {
 public extension MoyaProvider {
     
     func request<U: Mappable>(target: Target, completion: (response: [U]?, error: ErrorType?) -> ()) -> Cancellable {
-        return request(target) { response, error in
+        return request(target) { (response: MoyaResponse?, error: ErrorType?) in
             do {
                 completion(response: try response?.mapObjectMapper(), error: error)
             } catch {
