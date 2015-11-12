@@ -36,6 +36,7 @@ public class ReactiveCocoaMoyaProvider<Target where Target: MoyaTarget>: MoyaPro
         }
     }
     
+    @available(*, deprecated=5.0, message="RACSignal support has been deprecated")
     public func request(token: Target) -> RACSignal {
         return toRACSignal(request(token))
     }

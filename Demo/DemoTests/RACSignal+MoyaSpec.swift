@@ -22,6 +22,7 @@ private func signalSendingData(data: NSData, statusCode: Int = 200) -> RACSignal
     }
 }
 
+@available(*, deprecated=5.0, message="RACSignal support has been deprecated")
 class RACSignalMoyaSpec: QuickSpec {
     override func spec() {
         describe("status codes filtering") {

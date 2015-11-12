@@ -9,9 +9,10 @@ public enum MoyaError: ErrorType {
     case Underlying(ErrorType)
 }
 
-// If RACSignal support gets removed we can also remove everything under here
+@available(*, deprecated=5.0, message="RACSignal support has been deprecated")
 public let MoyaErrorDomain = "Moya"
 
+@available(*, deprecated=5.0, message="RACSignal support has been deprecated")
 public enum MoyaErrorCode: Int {
     case ImageMapping = 0
     case JSONMapping
@@ -20,6 +21,7 @@ public enum MoyaErrorCode: Int {
     case Data
 }
 
+@available(*, deprecated=5.0, message="RACSignal support has been deprecated")
 internal extension MoyaError {
     
     // Used to convert MoyaError to NSError for RACSignal
