@@ -1,4 +1,5 @@
 import UIKit
+import Moya
 
 class ViewController: UITableViewController {
     var repos = NSArray()
@@ -12,29 +13,27 @@ class ViewController: UITableViewController {
     // MARK: - API Stuff
 
     func downloadRepositories(username: String) {
-        GitHubProvider.request(.UserRepositories(username), completion: { (response, error) -> () in
-            var success = error == nil
-            if let response = response {
-                do {
-                    let json: AnyObject? = try response.mapJSON()
-                    if let json = json as? NSArray {
-                        // Presumably, you'd parse the JSON into a model object. This is just a demo, so we'll keep it as-is.
-                        self.repos = json
-                    } else {
-                        success = false
-                    }
-                } catch {
-                    success = false
+        GitHubProvider.request(.UserRepositories(username), completion: { result in
+            
+            func toNSArray(json: AnyObject) throws -> NSArray {
+                if let json = json as? NSArray {
+                    // Presumably, you'd parse the JSON into a model object. This is just a demo, so we'll keep it as-is.
+                   return json
+                } else {
+                    throw NSError(domain: "FailedCast", code: 0, userInfo: nil)
                 }
+            }
+            
+            do {
+                let response = try result()
+                let json = try response.mapJSON()
+                self.repos = try toNSArray(json)
 
                 self.tableView.reloadData()
-            } else {
-                success = false
-            }
-
-            if !success {
+            } catch {
                 let message: String
-                if let error = error {
+
+                if let error = error as? CustomStringConvertible {
                     message = error.description
                 } else {
                     message = "Unable to fetch from GitHub"
@@ -51,12 +50,17 @@ class ViewController: UITableViewController {
     }
 
     func downloadZen() {
-        GitHubProvider.request(.Zen, completion: { (response, error) -> () in
-            var message = "Couldn't access API"
-            if let response = response {
-                message = NSString(data: response.data, encoding: NSUTF8StringEncoding) as? String ?? message
-            }
+        GitHubProvider.request(.Zen, completion: { result in
+            
+            var message: String
 
+            do {
+                let response = try result()
+                message = try response.mapString()
+            } catch {
+                message = "Couldn't access API"
+            }
+        
             let alertController = UIAlertController(title: "Zen", message: message, preferredStyle: .Alert)
             let ok = UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
                 alertController.dismissViewControllerAnimated(true, completion: nil)

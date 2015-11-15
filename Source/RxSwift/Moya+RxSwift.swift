@@ -12,23 +12,22 @@ public class RxMoyaProvider<Target where Target: MoyaTarget>: MoyaProvider<Targe
         plugins: [Plugin<Target>] = []) {
             super.init(endpointClosure: endpointClosure, requestClosure: requestClosure, stubClosure: stubClosure, manager: manager, plugins: plugins)
     }
-
+    
     /// Designated request-making method.
     public func request(token: Target) -> Observable<MoyaResponse> {
-
+        
         // Creates an observable that starts a request each time it's subscribed to.
         return create { [weak self] observer in
-            let cancellableToken = self?.request(token) { response, error in
-                if let error = error {
-                    observer.onError(error)
-                } else {
-                    if let response = response {
-                        observer.onNext(response)
-                    }
+            let cancellableToken = self?.request(token) { result in
+                do {
+                    let response = try result()
+                    observer.onNext(response)
                     observer.onCompleted()
+                } catch {
+                    observer.onError(error)
                 }
             }
-
+            
             return AnonymousDisposable {
                 cancellableToken?.cancel()
             }

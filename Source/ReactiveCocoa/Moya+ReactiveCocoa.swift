@@ -20,14 +20,15 @@ public class ReactiveCocoaMoyaProvider<Target where Target: MoyaTarget>: MoyaPro
         
         // Creates a producer that starts a request each time it's started.
         return SignalProducer { [weak self] observer, requestDisposable in
-            let cancellableToken = self?.request(token) { response, error in
-                if let error = error {
-                    observer.sendFailed(error)
-                } else {
-                    if let response = response {
-                        observer.sendNext(response)
-                    }
+            let cancellableToken = self?.request(token) { result in
+                do {
+                    let response = try result()
+                    observer.sendNext(response)
                     observer.sendCompleted()
+                } catch let error as MoyaError {
+                    observer.sendFailed(error)
+                } catch {
+                    observer.sendFailed(.Underlying(error))
                 }
             }
             
@@ -37,7 +38,7 @@ public class ReactiveCocoaMoyaProvider<Target where Target: MoyaTarget>: MoyaPro
             }
         }
     }
-
+    
     override func stubRequest(target: Target, request: NSURLRequest, completion: Moya.Completion, endpoint: Endpoint<Target>, stubBehavior: Moya.StubBehavior) -> CancellableToken {
         guard let stubScheduler = self.stubScheduler else {
             return super.stubRequest(target, request: request, completion: completion, endpoint: endpoint, stubBehavior: stubBehavior)
@@ -48,7 +49,7 @@ public class ReactiveCocoaMoyaProvider<Target where Target: MoyaTarget>: MoyaPro
             dis?.dispose()
         }
         let stub = createStubFunction(token, forTarget: target, withCompletion: completion, endpoint: endpoint, plugins: plugins)
-
+        
         switch stubBehavior {
         case .Immediate:
             dis = stubScheduler.schedule(stub)
@@ -60,7 +61,7 @@ public class ReactiveCocoaMoyaProvider<Target where Target: MoyaTarget>: MoyaPro
         }
         return token
     }
-
+    
     @available(*, deprecated, message="This will be removed when ReactiveCocoa 4 becomes final. Please visit https://github.com/Moya/Moya/issues/298 for more information.")
     public func request(token: Target) -> RACSignal {
         return toRACSignal(request(token))
