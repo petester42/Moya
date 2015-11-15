@@ -14,9 +14,9 @@ class MoyaProviderSpec: QuickSpec {
             var message: String?
             
             let target: GitHub = .Zen
-            provider.request(target) { (data, statusCode, response, error) in
-                if let data = data {
-                    message = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+            provider.request(target) { (response, error) in
+                if let response = response {
+                    message = NSString(data: response.data, encoding: NSUTF8StringEncoding) as? String
                 }
             }
             
@@ -28,9 +28,9 @@ class MoyaProviderSpec: QuickSpec {
             var message: String?
             
             let target: GitHub = .UserProfile("ashfurrow")
-            provider.request(target) { (data, statusCode, response, error) in
-                if let data = data {
-                    message = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+            provider.request(target) { (response, error) in
+                if let response = response {
+                    message = NSString(data: response.data, encoding: NSUTF8StringEncoding) as? String
                 }
             }
             
@@ -49,7 +49,7 @@ class MoyaProviderSpec: QuickSpec {
         it("returns a cancellable object when a request is made") {
             let target: GitHub = .UserProfile("ashfurrow")
             
-            let cancellable: Cancellable = provider.request(target) { (_, _, _, _) in }
+            let cancellable: Cancellable = provider.request(target) { (_, _) in }
             
             expect(cancellable).toNot(beNil())
 
@@ -68,7 +68,7 @@ class MoyaProviderSpec: QuickSpec {
             
             let provider = MoyaProvider<HTTPBin>(stubClosure: MoyaProvider.ImmediatelyStub, plugins: [plugin])
             let target: HTTPBin = .BasicAuth
-            provider.request(target) { (data, statusCode, response, error) in }
+            provider.request(target) { (response, error) in }
             
             expect(called) == true
         }
@@ -82,7 +82,7 @@ class MoyaProviderSpec: QuickSpec {
             
             let provider = MoyaProvider<HTTPBin>(stubClosure: MoyaProvider.ImmediatelyStub, plugins: [plugin])
             let target: HTTPBin = .BasicAuth
-            provider.request(target) { (data, statusCode, response, error) in }
+            provider.request(target) { (response, error) in }
             
             expect(called) == true
         }
@@ -105,7 +105,7 @@ class MoyaProviderSpec: QuickSpec {
             let provider = MoyaProvider<GitHub>(manager: manager)
             let target: GitHub = .Zen
             waitUntil(timeout: 3) { done in
-                provider.request(target) { (data, statusCode, response, error) in
+                provider.request(target) { (response, error) in
                     done()
                 }
                 return
@@ -124,7 +124,7 @@ class MoyaProviderSpec: QuickSpec {
             
             let provider = MoyaProvider<GitHub>(stubClosure: MoyaProvider.ImmediatelyStub, plugins: [plugin])
             let target: GitHub = .Zen
-            provider.request(target) { (data, statusCode, response, error) in }
+            provider.request(target) { (response, error) in }
 
             expect(called) == true
         }
@@ -139,7 +139,7 @@ class MoyaProviderSpec: QuickSpec {
 
             let provider = MoyaProvider<GitHub>(stubClosure: MoyaProvider.ImmediatelyStub, plugins: [plugin])
             let target: GitHub = .Zen
-            provider.request(target) { (data, statusCode, response, error) in }
+            provider.request(target) { (response, error) in }
             
             expect(called) == true
         }
@@ -151,7 +151,7 @@ class MoyaProviderSpec: QuickSpec {
             var endDate: NSDate?
             let target: GitHub = .Zen
             waitUntil(timeout: 3) { done in
-                provider.request(target) { (data, statusCode, response, error) in
+                provider.request(target) { (response, error) in
                     endDate = NSDate()
                     done()
                 }
@@ -178,7 +178,7 @@ class MoyaProviderSpec: QuickSpec {
             
             it("executes the endpoint resolver") {
                 let target: GitHub = .Zen
-                provider.request(target, completion: { (data, statusCode, response, error) in })
+                provider.request(target, completion: { (response, error) in })
 
                 expect(executed).to(beTruthy())
             }
@@ -194,7 +194,7 @@ class MoyaProviderSpec: QuickSpec {
                 var errored = false
                 
                 let target: GitHub = .Zen
-                provider.request(target) { (object, statusCode, response, error) in
+                provider.request(target) { (response, error) in
                     if error != nil {
                         errored = true
                     }
@@ -208,7 +208,7 @@ class MoyaProviderSpec: QuickSpec {
                 var errored = false
                 
                 let target: GitHub = .UserProfile("ashfurrow")
-                provider.request(target) { (object, statusCode, response, error) in
+                provider.request(target) { (response, error) in
                     if error != nil {
                         errored = true
                     }
@@ -219,14 +219,19 @@ class MoyaProviderSpec: QuickSpec {
             }
 
             it("returns stubbed error data when present") {
-                var receivedError: NSError?
+                var receivedError: MoyaError?
                 
                 let target: GitHub = .UserProfile("ashfurrow")
-                provider.request(target) { (object, statusCode, response, error) in
-                    receivedError = error as NSError?
+                provider.request(target) { (response, error) in
+                    receivedError = error
                 }
-
-                expect(receivedError?.localizedDescription) == "Houston, we have a problem"
+                
+                switch receivedError {
+                case .Some(.Underlying(let error as NSError)):
+                    expect(error.localizedDescription) == "Houston, we have a problem"
+                default:
+                    fail("expected an Underlying error that Houston has a problem")
+                }
             }
         }
     }

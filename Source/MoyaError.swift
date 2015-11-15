@@ -9,6 +9,25 @@ public enum MoyaError: ErrorType {
     case Underlying(ErrorType)
 }
 
+extension MoyaError: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .ImageMapping(let response):
+            return "Image mapping failed (response: \(response)"
+        case .JSONMapping(let response):
+            return "JSON mapping failed (response: \(response)"
+        case .StringMapping(let response):
+            return "String mapping failed (response: \(response)"
+        case .StatusCode(let response):
+            return "Status code mapping failed (response: \(response)"
+        case .Data(let response):
+            return "Data mapping failed (response: \(response)"
+        case .Underlying(let error):
+            return (error as NSError).description
+        }
+    }
+}
+
 @available(*, deprecated, message="This will be removed when ReactiveCocoa 4 becomes final. Please visit https://github.com/Moya/Moya/issues/298 for more information.")
 public let MoyaErrorDomain = "Moya"
 
