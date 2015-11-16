@@ -12,23 +12,21 @@ class ViewController: UITableViewController {
 
     // MARK: - API Stuff
 
-    func downloadRepositories(username: String) {
+    func downloadRepositories(username: String) {        
         GitHubProvider.request(.UserRepositories(username), completion: { result in
             
-            func toNSArray(json: AnyObject) throws -> NSArray {
-                if let json = json as? NSArray {
+            func toNSArray(response: MoyaResponse) throws -> NSArray {
+                if let json = try response.mapJSON() as? NSArray {
                     // Presumably, you'd parse the JSON into a model object. This is just a demo, so we'll keep it as-is.
                    return json
                 } else {
-                    throw NSError(domain: "FailedCast", code: 0, userInfo: nil)
+                    throw MoyaError.JSONMapping(response)
                 }
             }
             
             do {
                 let response = try result()
-                let json = try response.mapJSON()
-                self.repos = try toNSArray(json)
-
+                self.repos = try toNSArray(response)
                 self.tableView.reloadData()
             } catch {
                 let message: String
