@@ -1,6 +1,8 @@
 machine:
   xcode:
     version: "7.1"
+  ruby:
+    version: "2.0.0"
 
 dependencies:
   override:
